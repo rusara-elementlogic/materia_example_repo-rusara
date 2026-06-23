@@ -4,3 +4,4 @@ hostPort = "8000"
 
 [[Services]]
 Service = "backend-service.service"
+RestartedBy = ["backend-service.container"]
