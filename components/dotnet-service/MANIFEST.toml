@@ -1,5 +1,6 @@
 [Defaults]
 containerTag = "latest"
+containerPort = "8000"
 
 [[Services]]
 Service = "dotnet-service.service"
