@@ -1,7 +1,0 @@
-[Defaults]
-containerTag = "latest"
-containerPort = "8000"
-
-[[Services]]
-Service = "dotnet-service-test.service"
-RestartedBy = ["dotnet-service-test.container"]

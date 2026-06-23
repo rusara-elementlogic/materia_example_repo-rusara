@@ -1,9 +1,9 @@
 [Unit]
-Description=dotnet-service-test
+Description=backend-service
 
 [Container]
 Image=repo.sup-logistik.de/devex-docker-test-local/devex-dotnet-service-samples:latest
-ContainerName=dotnet-service-test
+ContainerName=backend-service-test
 
 # Port mappings
 PublishPort={{ .hostPort }}:8000
