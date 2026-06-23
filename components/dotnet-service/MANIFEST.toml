@@ -1,6 +1,6 @@
 [Defaults]
 containerTag = "latest"
-hostPort = "8080"
+hostPort = "8000"
 
 [[Services]]
 Service = "dotnet-service.service"
