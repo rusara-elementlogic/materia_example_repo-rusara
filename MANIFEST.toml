@@ -1,5 +1,5 @@
 [hosts]
-[hosts.localhost]
+[hosts.ess-oel-9-5]
 components = ["freshrss"]
 roles = ["base"]
 
