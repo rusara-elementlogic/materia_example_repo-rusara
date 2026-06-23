@@ -1,5 +1,5 @@
 [Defaults]
-containerTag = "latest"
+containerTag = "sha-335f077"
 
 [[Services]]
 Service = "dotnet-service.service"
