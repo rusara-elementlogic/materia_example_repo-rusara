@@ -1,0 +1,32 @@
+[Unit]
+Description=dotnet-service-test
+
+[Container]
+Image=repo.sup-logistik.de/devex-docker-test-local/devex-dotnet-service-samples:latest
+ContainerName=dotnet-service-test
+
+# Port mappings
+PublishPort=8000:8000
+
+# Environment variables
+Environment=ASPNETCORE_ENVIRONMENT=Development
+Environment=ASPNETCORE_URLS=http://+:8000
+Environment=ASPNETCORE_HTTP_PORTS=8000
+Environment=ConnectionStrings__Database=eGlobalShop.Customers
+
+# Restart policy
+Restart=always
+
+# Health check (equivalent to Kubernetes livenessProbe)
+HealthCmd=curl -f http://localhost:8000/health || exit 1
+HealthInterval=30s
+HealthTimeout=5s
+HealthStartPeriod=20s
+HealthRetries=3
+
+[Service]
+Restart=always
+TimeoutStopSec=30
+
+[Install]
+WantedBy=default.target
