@@ -1,0 +1,5 @@
+[Defaults]
+containerTag = "latest"
+
+[[Services]]
+Service = "dotnet-service.service"

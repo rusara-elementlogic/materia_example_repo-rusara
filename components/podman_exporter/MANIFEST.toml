@@ -1,6 +1,0 @@
-Defaults.containerTag = "latest"
-Defaults.Port = 9882
-
-[[Services]]
-Service = "podman_exporter.service"
-RestartedBy = ["podman_exporter.container"]
