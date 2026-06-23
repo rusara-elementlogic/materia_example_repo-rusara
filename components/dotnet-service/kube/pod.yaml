@@ -14,7 +14,7 @@ spec:
       imagePullPolicy: Always
       ports:
         - containerPort: 8000
-          hostPort: 8080
+          hostPort: 8081
           protocol: TCP
       env:
         - name: ASPNETCORE_ENVIRONMENT
