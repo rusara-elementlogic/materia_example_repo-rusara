@@ -13,8 +13,8 @@ spec:
       image: repo.sup-logistik.de/devex-docker-test-local/devex-dotnet-service-samples:latest
       imagePullPolicy: Always
       ports:
-        - containerPort: {{ .containerPort }}
-          hostPort: 8000
+        - containerPort: 8000
+          hostPort: {{ .hostPort }}
           protocol: TCP
       env:
         - name: ASPNETCORE_ENVIRONMENT
