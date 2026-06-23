@@ -2,7 +2,7 @@
 Description=eGlobalShop customer service pod
 
 [Kube]
-Yaml=../kube/customers-service-pod.yaml
+Yaml=../kube/pod.yaml
 SetWorkingDirectory=yaml
 AutoUpdate=registry
 LogDriver=journald
