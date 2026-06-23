@@ -2,7 +2,7 @@
 Description=eGlobalShop customer service pod
 
 [Kube]
-Yaml={{ m_dataDir "dotnet-service" }}/kube/pod.yaml.gotmpl
+Yaml={{ m_dataDir "dotnet-service" }}/kube/pod.yaml
 AutoUpdate=registry
 LogDriver=journald
 PodmanArgs=--authfile=%h/.config/containers/auth.json
