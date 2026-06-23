@@ -14,9 +14,6 @@ Environment=ASPNETCORE_URLS=http://+:8000
 Environment=ASPNETCORE_HTTP_PORTS=8000
 Environment=ConnectionStrings__Database=eGlobalShop.Customers
 
-# Restart policy
-Restart=always
-
 # Health check (equivalent to Kubernetes livenessProbe)
 HealthCmd=curl -f http://localhost:8000/health || exit 1
 HealthInterval=30s
