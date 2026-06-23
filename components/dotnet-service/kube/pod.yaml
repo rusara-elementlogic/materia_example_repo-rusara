@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dotnet-service
+  labels:
+    app.kubernetes.io/name: dotnet-service
+    app.kubernetes.io/part-of: eglobalshop
+spec:
+  restartPolicy: Always
+  terminationGracePeriodSeconds: 30
+  containers:
+    - name: dotnet-service
+      image: repo.sup-logistik.de/devex-docker-test-local/devex-dotnet-service-samples:latest
+      imagePullPolicy: Always
+      ports:
+        - containerPort: 8000
+          hostPort: 8080
+          protocol: TCP
+      env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: Development
+        - name: ASPNETCORE_URLS
+          value: http://+:8000
+        - name: ASPNETCORE_HTTP_PORTS
+          value: '8000'
+        - name: ConnectionStrings__Database
+          value: eGlobalShop.Customers
+      livenessProbe:
+        httpGet:
+          path: /health
+          port: 8000
+        initialDelaySeconds: 20
+        periodSeconds: 30
+        timeoutSeconds: 5
+        failureThreshold: 3
