@@ -4,7 +4,7 @@ After=network-online.target
 Wants=network-online.target
 
 [Container]
-ContainerName=customers-service
+ContainerName=dotnet-service
 Image=repo.sup-logistik.de/devex-docker-test-local/devex-dotnet-service-samples:{{ .containerTag }}
 
 # Equivalent to imagePullPolicy: Always
