@@ -2,8 +2,8 @@
 Description=backend-service
 
 [Container]
-Image=repo.sup-logistik.de/devex-docker-test-local/devex-dotnet-service-samples:latest
-ContainerName=backend-service-test
+Image=repo.sup-logistik.de/devex-docker-test-local/devex-dotnet-service-samples:{{ .containerTag }}
+ContainerName=dotnet-service-test
 
 # Port mappings
 PublishPort={{ .hostPort }}:8000
