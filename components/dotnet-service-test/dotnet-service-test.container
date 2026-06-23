@@ -6,7 +6,7 @@ Image=repo.sup-logistik.de/devex-docker-test-local/devex-dotnet-service-samples:
 ContainerName=dotnet-service-test
 
 # Port mappings
-PublishPort=8000:8000
+PublishPort={{ .hostPort }}:8000
 
 # Environment variables
 Environment=ASPNETCORE_ENVIRONMENT=Development
