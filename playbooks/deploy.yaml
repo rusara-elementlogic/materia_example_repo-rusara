@@ -1,0 +1,33 @@
+---
+- hosts: localhost
+  connection: local
+  become: true
+
+  tasks:
+    - name: Ensure quadlet directory exists
+      file:
+        path: /etc/containers/systemd
+        state: directory
+        mode: "0755"
+
+    - name: Deploy quadlets
+      copy:
+        src: "../quadlets/"
+        dest: /etc/containers/systemd/
+        owner: root
+        group: root
+        mode: "0644"
+      notify:
+        - reload systemd
+        - restart quadlet services
+
+  handlers:
+    - name: reload systemd
+      systemd:
+        daemon_reload: true
+
+    - name: restart quadlet services
+      systemd:
+        name: nginx.service
+        enabled: true
+        state: restarted

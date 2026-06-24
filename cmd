@@ -1,0 +1,1 @@
+ansible-pull -U https://github.com/rusara-elementlogic/materia_example_repo-rusara.git playbooks/deploy.yaml
