@@ -1,15 +1,15 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: test-service-dotnet
+  name: test-service-backend
   labels:
-    app.kubernetes.io/name: test-service-dotnet
+    app.kubernetes.io/name: test-service-backend
     app.kubernetes.io/part-of: eglobalshop
 spec:
   restartPolicy: Always
   terminationGracePeriodSeconds: 30
   containers:
-    - name: test-service-dotnet
+    - name: test-service-backend
       image: repo.sup-logistik.de/devex-docker-test-local/devex-dotnet-service-samples:latest
       imagePullPolicy: Always
       ports:

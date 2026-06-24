@@ -28,6 +28,6 @@
 
     - name: restart quadlet services
       systemd:
-        name: nginx.service
+        name: test-service-dotnet.service
         enabled: true
-        state: restarted
+        state: started
