@@ -28,6 +28,6 @@
 
     - name: restart quadlet services
       systemd:
-        name: test-service-dotnet.service
+        name: test-service-backend.service
         enabled: true
         state: started
