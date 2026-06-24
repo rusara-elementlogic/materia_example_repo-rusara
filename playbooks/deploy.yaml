@@ -1,8 +1,8 @@
 ---
 - hosts: localhost
   connection: local
-  become: true
-
+  become: false
+  gather_facts: false
   vars:
     quadlet_user: ess-app
     quadlet_dir: "/home/ess-app/.config/containers/systemd"
