@@ -3,7 +3,7 @@ Description=eGlobalShop customer service pod
 
 # dummy
 [Kube]
-Yaml=../kube/pod.yaml
+Yaml=./kube/pod.yaml
 AutoUpdate=registry
 LogDriver=journald
 PodmanArgs=--authfile=%h/.config/containers/auth.json
