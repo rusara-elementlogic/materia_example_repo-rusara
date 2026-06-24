@@ -1,0 +1,78 @@
+---
+- hosts: localhost
+  connection: local
+  become: false
+  gather_facts: false
+  vars:
+    quadlet_user: ess-deploy
+    ansible_pull_service_name: materia-ansible-pull
+    ansible_pull_repo_url: https://github.com/rusara-elementlogic/materia_example_repo-rusara.git
+    ansible_pull_checkout_dir: "/home/ess-deploy/.local/share/ansible-pull/materia_example_repo-rusara"
+    ansible_pull_playbook: playbooks/deploy.yaml
+
+  tasks:
+    - name: Ensure ansible-pull checkout parent exists
+      file:
+        path: "{{ ansible_pull_checkout_dir | dirname }}"
+        state: directory
+        owner: "{{ quadlet_user }}"
+        group: "{{ quadlet_user }}"
+        mode: "0755"
+      become: true
+
+    - name: Install ansible-pull service unit
+      copy:
+        dest: "/etc/systemd/system/{{ ansible_pull_service_name }}.service"
+        mode: "0644"
+        content: |
+          [Unit]
+          Description=Run ansible-pull for Materia example repo
+          Wants=network-online.target
+          After=network-online.target
+
+          [Service]
+          Type=oneshot
+          User={{ quadlet_user }}
+          Group={{ quadlet_user }}
+          Environment=HOME=/home/{{ quadlet_user }}
+          WorkingDirectory=/home/{{ quadlet_user }}
+          ExecStart=/usr/bin/ansible-pull -U {{ ansible_pull_repo_url }} -d {{ ansible_pull_checkout_dir }} {{ ansible_pull_playbook }}
+      notify:
+        - reload systemd
+      become: true
+
+    - name: Install ansible-pull timer unit
+      copy:
+        dest: "/etc/systemd/system/{{ ansible_pull_service_name }}.timer"
+        mode: "0644"
+        content: |
+          [Unit]
+          Description=Periodically run ansible-pull for Materia example repo
+
+          [Timer]
+          OnBootSec=5m
+          OnUnitActiveSec=1m
+          RandomizedDelaySec=2m
+          Persistent=true
+
+          [Install]
+          WantedBy=timers.target
+      notify:
+        - reload systemd
+      become: true
+
+    - name: Flush systemd reload before enabling ansible-pull timer
+      meta: flush_handlers
+
+    - name: Enable ansible-pull timer
+      systemd:
+        name: "{{ ansible_pull_service_name }}.timer"
+        enabled: true
+        state: started
+      become: true
+
+  handlers:
+    - name: reload systemd
+      systemd:
+        daemon_reload: true
+      become: true
