@@ -10,7 +10,7 @@ spec:
   terminationGracePeriodSeconds: 30
   containers:
     - name: dotnet-service
-      image: repo.sup-logistik.de/devex-docker-test-local/devex-dotnet-service-samples:sha-335f077
+      image: repo.sup-logistik.de/devex-docker-test-local/devex-dotnet-service-samples:latest
       imagePullPolicy: Always
       ports:
         - containerPort: 8000
