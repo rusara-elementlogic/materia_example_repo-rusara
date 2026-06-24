@@ -3,31 +3,41 @@
   connection: local
   become: true
 
+  vars:
+    quadlet_user: ess-app
+    quadlet_dir: "/home/ess-app/.config/containers/systemd"
+
   tasks:
     - name: Ensure quadlet directory exists
       file:
-        path: /etc/containers/systemd
+        path: "{{ quadlet_dir }}"
         state: directory
+        owner: "{{ quadlet_user }}"
+        group: "{{ quadlet_user }}"
         mode: "0755"
 
     - name: Deploy quadlets
       copy:
         src: "../quadlets/"
-        dest: /etc/containers/systemd/
-        owner: root
-        group: root
+        dest: "{{ quadlet_dir }}/"
+        owner: "{{ quadlet_user }}"
+        group: "{{ quadlet_user }}"
         mode: "0644"
       notify:
-        - reload systemd
+        - reload user systemd
         - restart quadlet services
 
   handlers:
-    - name: reload systemd
-      systemd:
-        daemon_reload: true
+    - name: reload user systemd
+      become: true
+      become_user: "{{ quadlet_user }}"
+      environment:
+        XDG_RUNTIME_DIR: "/run/user/{{ lookup('ansible.builtin.pipe', 'id -u ' + quadlet_user) }}"
+      command: systemctl --user daemon-reload
 
     - name: restart quadlet services
-      systemd:
-        name: test-service-backend.service
-        enabled: true
-        state: started
+      become: true
+      become_user: "{{ quadlet_user }}"
+      environment:
+        XDG_RUNTIME_DIR: "/run/user/{{ lookup('ansible.builtin.pipe', 'id -u ' + quadlet_user) }}"
+      command: systemctl --user restart test-service-backend.service
