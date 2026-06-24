@@ -4,8 +4,8 @@
   become: false
   gather_facts: false
   vars:
-    quadlet_user: ess-app
-    quadlet_dir: "/home/ess-app/.config/containers/systemd"
+    quadlet_user: ess-deploy
+    quadlet_dir: "/home/ess-deploy/.config/containers/systemd"
 
   tasks:
     - name: Ensure quadlet directory exists
@@ -31,7 +31,6 @@
 
   handlers:
     - name: reload user systemd
-      become: true
       become_user: "{{ quadlet_user }}"
       environment:
         XDG_RUNTIME_DIR: "/run/user/{{ lookup('ansible.builtin.pipe', 'id -u ' + quadlet_user) }}"
