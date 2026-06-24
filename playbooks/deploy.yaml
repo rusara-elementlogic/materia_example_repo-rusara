@@ -15,6 +15,7 @@
         owner: "{{ quadlet_user }}"
         group: "{{ quadlet_user }}"
         mode: "0755"
+      become: true
 
     - name: Deploy quadlets
       copy:
@@ -26,6 +27,7 @@
       notify:
         - reload user systemd
         - restart quadlet services
+      become: true
 
   handlers:
     - name: reload user systemd
