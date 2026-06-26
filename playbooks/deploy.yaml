@@ -32,6 +32,7 @@
   handlers:
     - name: reload user systemd
       become_user: "{{ quadlet_user }}"
+      become: true
       environment:
         XDG_RUNTIME_DIR: "/run/user/{{ lookup('ansible.builtin.pipe', 'id -u ' + quadlet_user) }}"
       command: systemctl --user daemon-reload
